@@ -3,3 +3,4 @@ ragas>=0.1.0
 datasets>=2.14.0
 langchain-core>=0.1.0
 langchain-openai>=0.0.5
+eval_type_backport>=0.2.0

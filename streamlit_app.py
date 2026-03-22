@@ -18,6 +18,15 @@ from rag_kb.config import (
     STORE_DIR,
 )
 from rag_kb.document_loader import load_document
+from rag_kb.ragas_eval import (
+    DEFAULT_EVAL_JSONL,
+    RAGAS_METRIC_KEYS,
+    RAGAS_METRIC_LABELS_ZH,
+    extract_ragas_aggregate_scores,
+    format_ragas_output,
+    print_ragas_report,
+    run_ragas_evaluation,
+)
 
 STORE_FILE_MARKER = STORE_DIR / "chunks.jsonl"
 
@@ -93,6 +102,13 @@ def _append_and_answer(store, q: str, top_k: int, sim_threshold: float) -> None:
 def main() -> None:
     st.title("RAG 知识库问答")
 
+    if "ragas_out" not in st.session_state:
+        st.session_state["ragas_out"] = None
+    if "ragas_err" not in st.session_state:
+        st.session_state["ragas_err"] = None
+    if "ragas_scores" not in st.session_state:
+        st.session_state["ragas_scores"] = None
+
     store = get_store()
 
     with st.sidebar:
@@ -159,6 +175,53 @@ def main() -> None:
         st.markdown(
             f"**嵌入模型**: `{EMBEDDING_MODEL}`  \n**对话模型**: `{OPENAI_CHAT_MODEL}`"
         )
+
+        _hr()
+        st.subheader("RAGAS 评测")
+        eval_path_in = st.text_input(
+            "评测集 JSONL",
+            value=str(DEFAULT_EVAL_JSONL),
+        )
+        if st.button("运行 RAGAS 评测"):
+            path = Path(eval_path_in.strip() or str(DEFAULT_EVAL_JSONL))
+            try:
+                with st.spinner("RAGAS…"):
+                    res, err = run_ragas_evaluation(
+                        path,
+                        top_k=top_k,
+                        threshold=sim_threshold,
+                    )
+                if err:
+                    st.session_state["ragas_out"] = None
+                    st.session_state["ragas_scores"] = None
+                    st.session_state["ragas_err"] = err
+                else:
+                    st.session_state["ragas_err"] = None
+                    st.session_state["ragas_scores"] = extract_ragas_aggregate_scores(res)
+                    st.session_state["ragas_out"] = format_ragas_output(res) or str(res)
+                    print_ragas_report(res)
+            except Exception as e:
+                st.session_state["ragas_out"] = None
+                st.session_state["ragas_scores"] = None
+                st.session_state["ragas_err"] = f"评测异常: {e}"
+            _rerun()
+
+    if st.session_state.get("ragas_err"):
+        st.error(st.session_state["ragas_err"])
+    if st.session_state.get("ragas_scores"):
+        st.subheader("RAGAS")
+        cols = st.columns(4)
+        for i, key in enumerate(RAGAS_METRIC_KEYS):
+            v = st.session_state["ragas_scores"].get(key)
+            label = RAGAS_METRIC_LABELS_ZH.get(key, key)
+            if v is not None and v == v:
+                cols[i].metric(label, f"{float(v):.3f}")
+            else:
+                cols[i].metric(label, "—")
+        detail = st.session_state.get("ragas_out")
+        if detail:
+            with st.expander("明细"):
+                st.code(detail, language=None)
 
     if "messages" not in st.session_state:
         st.session_state.messages = []
