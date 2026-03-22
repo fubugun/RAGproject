@@ -55,15 +55,16 @@
 ## Demo 截图
 
 上传文件+问答
-<img width="2491" height="1212" alt="屏幕截图 2026-03-22 142235" src="https://github.com/user-attachments/assets/87348167-a8b0-4506-b6ca-029a4877b941" />
-<img width="548" height="702" alt="屏幕截图 2026-03-22 142241" src="https://github.com/user-attachments/assets/7a9c5111-bc08-4e49-8006-1b274201068e" />
-<img width="1805" height="708" alt="屏幕截图 2026-03-22 142256" src="https://github.com/user-attachments/assets/345578a4-7484-4b36-93d4-545a2e47ddc6" />
-<img width="1860" height="1235" alt="屏幕截图 2026-03-22 142405" src="https://github.com/user-attachments/assets/5a035f87-82a2-403a-90ec-c7cdddad8b80" />
-RAG评测
-<img width="517" height="366" alt="屏幕截图 2026-03-22 172309" src="https://github.com/user-attachments/assets/b4dd2657-c305-4f3a-a2b0-6c499cac360d" />
-<img width="1691" height="342" alt="屏幕截图 2026-03-22 174049" src="https://github.com/user-attachments/assets/370457cc-b9de-4d56-a529-dff54b08e3bd" />
-<img width="1725" height="468" alt="屏幕截图 2026-03-22 174100" src="https://github.com/user-attachments/assets/d664e2e9-5f96-41ac-85dc-69e605f1c286" />
+<img width="2489" height="1358" alt="屏幕截图 2026-03-22 182408" src="https://github.com/user-attachments/assets/98192b21-59f7-4cdf-8755-ec9b924d28e1" />
+<img width="2458" height="1249" alt="屏幕截图 2026-03-22 182631" src="https://github.com/user-attachments/assets/502644be-c83d-4978-a5dc-f74ec3f07e28" />
+<img width="2477" height="1286" alt="屏幕截图 2026-03-22 182659" src="https://github.com/user-attachments/assets/9702266a-e628-4d99-af37-ac5a55a7040f" />
 
+
+
+RAG评测
+
+<img width="534" height="375" alt="屏幕截图 2026-03-22 182729" src="https://github.com/user-attachments/assets/f8ecd344-53da-4b39-9421-6a5c5893cd78" />
+<img width="1081" height="697" alt="屏幕截图 2026-03-22 183955" src="https://github.com/user-attachments/assets/384f336e-df3d-4efd-b0c0-b41696f2ad1b" />
 
 
 
